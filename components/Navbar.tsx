@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 import {
   useEffect,
   useState,
@@ -8,7 +10,6 @@ import {
 import {
   ArrowUpRight,
   Menu,
-  Navigation2,
   X,
 } from "lucide-react";
 
@@ -37,7 +38,7 @@ export default function Navbar({
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(
-        window.scrollY > 40,
+        window.scrollY > 10,
       );
     };
 
@@ -73,6 +74,10 @@ export default function Navbar({
       "#travel",
     ],
     [
+      "Tools",
+      "#tools",
+    ],
+    [
       navigation.faqLabel,
       "#faq",
     ],
@@ -80,144 +85,123 @@ export default function Navbar({
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 px-4 transition-all duration-500 sm:px-6 ${
+      className={`fixed inset-x-0 top-0 z-50 border-b transition-all duration-300 ${
         scrolled
-          ? "pt-2"
-          : "pt-4"
+          ? "border-[#ECEEF3] bg-white/95 shadow-[0_6px_25px_rgba(20,28,54,0.04)] backdrop-blur-xl"
+          : "border-transparent bg-white/90 backdrop-blur-md"
       }`}
     >
-      <div
-        className={`mx-auto max-w-7xl border transition-all duration-500 ${
-          scrolled
-            ? "rounded-[18px] border-white/70 bg-white/70 px-4 py-2.5 shadow-[0_14px_45px_rgba(28,44,92,0.10)] backdrop-blur-2xl sm:px-5"
-            : "rounded-[22px] border-white/80 bg-white/80 px-4 py-3 shadow-[0_12px_50px_rgba(28,44,92,0.08)] backdrop-blur-xl sm:px-5"
-        }`}
-      >
-        <div className="flex items-center justify-between">
+      <div className="mx-auto flex min-h-[72px] max-w-7xl items-center justify-between gap-3 px-4 sm:px-6">
+        <a
+          href="#top"
+          className="flex min-w-0 items-center gap-3"
+          aria-label={`${brand.name} home`}
+        >
+          <Image
+            src="/app-icon.png"
+            alt={`${brand.name} app icon`}
+            width={42}
+            height={42}
+            priority
+            className="h-10 w-10 shrink-0 rounded-[12px] object-cover"
+          />
+
+          <div className="min-w-0">
+            {/* Exact full name on larger screens */}
+            <p className="hidden max-w-[270px] truncate text-sm font-semibold tracking-[-0.02em] text-[#111629] md:block">
+              {brand.name}
+            </p>
+
+            {/* Short name on mobile */}
+            <p className="truncate text-sm font-semibold tracking-[-0.02em] text-[#111629] md:hidden">
+              {brand.shortName}
+            </p>
+
+            <p className="hidden text-[9px] uppercase tracking-[0.14em] text-[#999FAD] md:block">
+              {brand.navSubtitle}
+            </p>
+          </div>
+        </a>
+
+        <nav className="hidden items-center gap-7 lg:flex">
+          {links.map(
+            ([label, href]) => (
+              <a
+                key={href}
+                href={href}
+                className="text-sm font-medium text-[#626A7D] transition hover:text-[#111629]"
+              >
+                {label}
+              </a>
+            ),
+          )}
+        </nav>
+
+        <div className="flex shrink-0 items-center gap-2">
           <a
-            href="#top"
-            className="flex min-w-0 items-center gap-3"
-            aria-label={`${brand.shortName} home`}
+            href={playStoreUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="hidden min-h-11 items-center gap-2 rounded-full bg-[#111629] px-5 text-sm font-semibold text-white transition hover:-translate-y-0.5 sm:inline-flex"
           >
-            <div
-              className={`flex shrink-0 items-center justify-center bg-gradient-to-br from-[#1A67C9] to-[#8152ED] shadow-lg shadow-purple-500/20 transition-all duration-500 ${
-                scrolled
-                  ? "h-9 w-9 rounded-xl"
-                  : "h-10 w-10 rounded-2xl"
-              }`}
-            >
-              <Navigation2
-                className="h-5 w-5 text-white"
-                strokeWidth={2.3}
-              />
-            </div>
+            {navigation.getAppLabel}
 
-            <div className="min-w-0">
-              <div className="truncate text-sm font-semibold tracking-[-0.02em] text-[#101426] sm:text-base">
-                {brand.shortName}
-              </div>
-
-              {!scrolled && (
-                <div className="hidden text-[10px] font-medium uppercase tracking-[0.18em] text-[#8B91A7] sm:block">
-                  {
-                    brand.navSubtitle
-                  }
-                </div>
-              )}
-            </div>
+            <ArrowUpRight className="h-4 w-4" />
           </a>
 
-          <nav className="hidden items-center gap-8 lg:flex">
+          <button
+            type="button"
+            onClick={() =>
+              setOpen(
+                (value) => !value,
+              )
+            }
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-[#E4E7EE] bg-white text-[#151A2C] lg:hidden"
+            aria-label="Toggle navigation"
+            aria-expanded={open}
+          >
+            {open ? (
+              <X className="h-5 w-5" />
+            ) : (
+              <Menu className="h-5 w-5" />
+            )}
+          </button>
+        </div>
+      </div>
+
+      {open && (
+        <div className="border-t border-[#ECEEF3] bg-white px-4 pb-5 pt-3 lg:hidden">
+          <div className="mx-auto flex max-w-7xl flex-col">
             {links.map(
               ([label, href]) => (
                 <a
                   key={href}
                   href={href}
-                  className="text-sm font-medium text-[#555D72] transition hover:text-[#111629]"
+                  onClick={() =>
+                    setOpen(false)
+                  }
+                  className="flex min-h-12 items-center rounded-xl px-3 text-sm font-medium text-[#4F566B] transition hover:bg-[#F7F8FB]"
                 >
                   {label}
                 </a>
               ),
             )}
-          </nav>
 
-          <div className="flex items-center gap-2">
             <a
               href={playStoreUrl}
               target="_blank"
               rel="noreferrer"
-              className={`hidden items-center gap-2 rounded-full bg-[#111629] font-semibold text-white transition duration-300 hover:-translate-y-0.5 hover:bg-[#232941] sm:flex ${
-                scrolled
-                  ? "px-4 py-2.5 text-xs"
-                  : "px-5 py-3 text-sm"
-              }`}
+              className="mt-3 flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#111629] px-5 text-sm font-semibold text-white"
             >
               {
-                navigation.getAppLabel
+                navigation.googlePlayLabel
               }
 
               <ArrowUpRight className="h-4 w-4" />
             </a>
-
-            <button
-              type="button"
-              onClick={() =>
-                setOpen(
-                  (value) =>
-                    !value,
-                )
-              }
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-[#E7EAF2] bg-white text-[#151A2C] lg:hidden"
-              aria-label="Toggle navigation"
-              aria-expanded={open}
-              aria-controls="mobile-navigation"
-            >
-              {open ? (
-                <X className="h-5 w-5" />
-              ) : (
-                <Menu className="h-5 w-5" />
-              )}
-            </button>
           </div>
         </div>
-
-        {open && (
-          <div
-            id="mobile-navigation"
-            className="mt-4 border-t border-[#ECEEF4] pt-4 lg:hidden"
-          >
-            <div className="flex flex-col gap-2">
-              {links.map(
-                ([label, href]) => (
-                  <a
-                    key={href}
-                    href={href}
-                    onClick={() =>
-                      setOpen(false)
-                    }
-                    className="rounded-xl px-3 py-3 text-sm font-medium text-[#4F566B] transition hover:bg-[#F5F6FB]"
-                  >
-                    {label}
-                  </a>
-                ),
-              )}
-
-              <a
-                href={playStoreUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="mt-2 flex items-center justify-center gap-2 rounded-xl bg-[#111629] px-4 py-3 text-sm font-semibold text-white"
-              >
-                {
-                  navigation.googlePlayLabel
-                }
-
-                <ArrowUpRight className="h-4 w-4" />
-              </a>
-            </div>
-          </div>
-        )}
-      </div>
+      )}
     </header>
   );
 }

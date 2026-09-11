@@ -1,38 +1,50 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f8faff;
+  --background: #ffffff;
   --foreground: #101426;
 
   --brand-blue: #1a67c9;
   --brand-purple: #8152ed;
 }
 
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 90px;
+
+  width: 100%;
+  max-width: 100%;
+
+  overflow-x: hidden;
+
+  background: var(--background);
 }
 
 body {
   margin: 0;
-  background:
-    radial-gradient(
-      circle at 10% 8%,
-      rgba(129, 82, 237, 0.06),
-      transparent 30%
-    ),
-    radial-gradient(
-      circle at 90% 12%,
-      rgba(26, 103, 201, 0.07),
-      transparent 32%
-    ),
-    var(--background);
 
-  color: var(--foreground);
+  width: 100%;
+  max-width: 100%;
+  min-height: 100vh;
+
   overflow-x: hidden;
+
+  background: var(--background);
+  color: var(--foreground);
+
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+main {
+  width: 100%;
+  max-width: 100%;
 }
 
 a {
@@ -44,192 +56,42 @@ a {
   -webkit-tap-highlight-color: transparent;
 }
 
-.map-grid {
-  background-color: #f8faff;
-
-  background-image:
-    linear-gradient(
-      rgba(81, 98, 150, 0.055) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      90deg,
-      rgba(81, 98, 150, 0.055) 1px,
-      transparent 1px
-    ),
-    radial-gradient(
-      circle at 30% 20%,
-      rgba(26, 103, 201, 0.08),
-      transparent 30%
-    ),
-    radial-gradient(
-      circle at 76% 67%,
-      rgba(129, 82, 237, 0.09),
-      transparent 33%
-    );
-
-  background-size:
-    44px 44px,
-    44px 44px,
-    auto,
-    auto;
+button {
+  font: inherit;
 }
 
 ::selection {
-  background: rgba(129, 82, 237, 0.18);
+  background: rgba(
+    101,
+    89,
+    223,
+    0.18
+  );
+
   color: #101426;
 }
-.capability-grid {
-  background-image:
-    linear-gradient(
-      rgba(255, 255, 255, 0.06) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 0.06) 1px,
-      transparent 1px
-    );
 
-  background-size: 34px 34px;
-}
-
-.capability-grid-light {
-  background-image:
-    linear-gradient(
-      rgba(79, 98, 151, 0.055) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      90deg,
-      rgba(79, 98, 151, 0.055) 1px,
-      transparent 1px
-    );
-
-  background-size: 30px 30px;
-}
-.world-grid {
-  background-image:
-    linear-gradient(
-      rgba(255, 255, 255, 0.035) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 0.035) 1px,
-      transparent 1px
-    );
-
-  background-size: 48px 48px;
-
-  mask-image:
-    radial-gradient(
-      circle at center,
-      black 20%,
-      transparent 82%
-    );
-}
-.weather-grid {
-  background-image:
-    linear-gradient(
-      rgba(255, 255, 255, 0.05) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 0.05) 1px,
-      transparent 1px
-    );
-
-  background-size: 34px 34px;
-}
-.travel-grid {
-  background-image:
-    linear-gradient(
-      rgba(80, 96, 150, 0.055) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      90deg,
-      rgba(80, 96, 150, 0.055) 1px,
-      transparent 1px
-    );
-
-  background-size: 32px 32px;
-}
-.utility-map-grid {
-  background-image:
-    linear-gradient(
-      rgba(77, 94, 145, 0.05) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      90deg,
-      rgba(77, 94, 145, 0.05) 1px,
-      transparent 1px
-    );
-
-  background-size: 34px 34px;
-}
-
-.utility-dark-grid {
-  background-image:
-    linear-gradient(
-      rgba(255, 255, 255, 0.045) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 0.045) 1px,
-      transparent 1px
-    );
-
-  background-size: 30px 30px;
-}
-
-.utility-fade-left {
-  background: linear-gradient(
-    to right,
-    #f8faff 15%,
-    transparent
-  );
-}
-
-.utility-fade-right {
-  background: linear-gradient(
-    to left,
-    #f8faff 15%,
-    transparent
-  );
+@media (max-width: 430px) {
+  html,
+  body {
+    min-width: 0;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
   *,
   *::before,
   *::after {
-    scroll-behavior: auto !important;
     animation-duration: 0.01ms !important;
+
     animation-iteration-count: 1 !important;
+
+    transition-duration: 0.01ms !important;
+
+    scroll-behavior: auto !important;
   }
-}
-.download-grid {
-  background-image:
-    linear-gradient(
-      rgba(255, 255, 255, 0.035) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 0.035) 1px,
-      transparent 1px
-    );
-
-  background-size: 48px 48px;
-
-  mask-image:
-    radial-gradient(
-      circle at 65% 45%,
-      black 10%,
-      transparent 75%
-    );
 }

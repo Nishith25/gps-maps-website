@@ -2,13 +2,10 @@ import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import Navbar from "@/components/Navbar";
 
+import AboutProduct from "@/components/sections/AboutProduct";
 import CoreCapabilities from "@/components/sections/CoreCapabilities";
 import DownloadCTA from "@/components/sections/DownloadCTA";
 import FAQ from "@/components/sections/FAQ";
-import ImmersiveMap from "@/components/sections/ImmersiveMap";
-import TravelIntelligence from "@/components/sections/TravelIntelligence";
-import UtilityShowcase from "@/components/sections/UtilityShowcase";
-import WeatherIntelligence from "@/components/sections/WeatherIntelligence";
 
 import {
   getSiteContent,
@@ -22,7 +19,7 @@ export default async function Home() {
     await getSiteContent();
 
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen overflow-x-hidden bg-white">
       <Navbar
         brand={content.brand}
         navigation={
@@ -35,8 +32,8 @@ export default async function Home() {
       />
 
       <Hero
-        eyebrow={
-          content.brand.eyebrow
+        brandName={
+          content.brand.name
         }
         titleTop={
           content.hero
@@ -58,8 +55,12 @@ export default async function Home() {
           content.navigation
             .googlePlayLabel
         }
-        stats={
-          content.stats
+        stats={content.stats}
+      />
+
+      <AboutProduct
+        content={
+          content.immersive
         }
       />
 
@@ -80,41 +81,21 @@ export default async function Home() {
           content.capabilities
             .items
         }
-      />
-
-      <ImmersiveMap
-        content={
-          content.immersive
-        }
-        playStoreUrl={
-          content.hero
-            .playStoreUrl
-        }
-      />
-
-      <WeatherIntelligence
-        content={
+        weather={
           content.weather
         }
-      />
-
-      <TravelIntelligence
-        content={
+        travel={
           content.travel
         }
-        playStoreUrl={
-          content.hero
-            .playStoreUrl
-        }
-      />
-
-      <UtilityShowcase
-        content={
+        utilities={
           content.utilities
         }
       />
 
       <DownloadCTA
+        brandName={
+          content.brand.name
+        }
         content={
           content.download
         }
@@ -134,9 +115,7 @@ export default async function Home() {
       />
 
       <Footer
-        brand={
-          content.brand
-        }
+        brand={content.brand}
         content={
           content.footer
         }

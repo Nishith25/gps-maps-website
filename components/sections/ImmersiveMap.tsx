@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "motion/react";
-
 import {
   CloudSun,
   Fuel,
@@ -15,14 +14,7 @@ import {
   WifiOff,
 } from "lucide-react";
 
-import type {
-  ImmersiveContent,
-} from "@/lib/content";
-
-type ImmersiveMapProps = {
-  content: ImmersiveContent;
-  playStoreUrl: string;
-};
+import { site } from "@/data/site";
 
 function PlacePin({
   children,
@@ -62,10 +54,7 @@ function PlacePin({
   );
 }
 
-export default function ImmersiveMap({
-  content,
-  playStoreUrl,
-}: ImmersiveMapProps) {
+export default function ImmersiveMap() {
   return (
     <section className="px-4 py-20 sm:px-6 sm:py-28">
       <div className="relative mx-auto max-w-7xl overflow-hidden rounded-[42px] bg-[#101426] shadow-[0_40px_120px_rgba(27,34,69,0.20)] sm:rounded-[52px]">
@@ -91,7 +80,7 @@ export default function ImmersiveMap({
             >
               <Sparkles className="h-3.5 w-3.5" />
 
-              {content.eyebrow}
+              {site.immersive.eyebrow}
             </motion.div>
 
             <motion.h2
@@ -111,7 +100,7 @@ export default function ImmersiveMap({
               }}
               className="mt-7 max-w-xl text-5xl font-semibold leading-[0.96] tracking-[-0.055em] text-white sm:text-6xl lg:text-7xl"
             >
-              {content.title}
+              {site.immersive.title}
             </motion.h2>
 
             <motion.p
@@ -131,7 +120,7 @@ export default function ImmersiveMap({
               }}
               className="mt-6 max-w-lg text-base leading-8 text-white/55 sm:text-lg"
             >
-              {content.description}
+              {site.immersive.description}
             </motion.p>
 
             <motion.div
@@ -151,7 +140,7 @@ export default function ImmersiveMap({
               }}
               className="mt-9 space-y-3"
             >
-              {content.highlights.map((item) => (
+              {site.immersive.highlights.map((item, index) => (
                 <div
                   key={item}
                   className="flex items-center gap-3 text-sm font-medium text-white/70"
@@ -180,7 +169,7 @@ export default function ImmersiveMap({
               transition={{
                 delay: 0.26,
               }}
-              href={playStoreUrl}
+              href={site.playStoreUrl}
               target="_blank"
               rel="noreferrer"
               className="mt-10 inline-flex w-fit items-center gap-3 rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-[#12172A] transition hover:-translate-y-1"
@@ -270,14 +259,8 @@ export default function ImmersiveMap({
                   y2="70"
                 >
                   <stop stopColor="#3191FF" />
-                  <stop
-                    offset="0.48"
-                    stopColor="#596EEF"
-                  />
-                  <stop
-                    offset="1"
-                    stopColor="#A05AF2"
-                  />
+                  <stop offset="0.48" stopColor="#596EEF" />
+                  <stop offset="1" stopColor="#A05AF2" />
                 </linearGradient>
               </defs>
             </svg>

@@ -2,7 +2,9 @@ import type {
   Metadata,
 } from "next";
 
-import { Geist } from "next/font/google";
+import {
+  Geist,
+} from "next/font/google";
 
 import {
   getSiteContent,
@@ -19,11 +21,15 @@ export async function generateMetadata(): Promise<Metadata> {
     await getSiteContent();
 
   return {
+    applicationName:
+      content.brand.name,
+
     title: {
       default:
         content.seo.title,
+
       template:
-        `%s | ${content.brand.shortName}`,
+        `%s | ${content.brand.name}`,
     },
 
     description:
@@ -31,6 +37,18 @@ export async function generateMetadata(): Promise<Metadata> {
 
     keywords:
       content.seo.keywords,
+
+    icons: {
+      icon: [
+        {
+          url: "/app-icon.png",
+          type: "image/png",
+        },
+      ],
+
+      apple:
+        "/app-icon.png",
+    },
 
     robots: {
       index: true,
@@ -42,7 +60,8 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children:
+    React.ReactNode;
 }>) {
   return (
     <html lang="en">
