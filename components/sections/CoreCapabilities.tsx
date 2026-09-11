@@ -54,6 +54,13 @@ type FeatureGroup = {
   more: string[];
 };
 
+type CapabilityStyle = {
+  background: string;
+  iconBackground: string;
+  accent: string;
+  badgeBackground: string;
+};
+
 const iconMap = {
   navigation: Navigation2,
   weather: CloudSun,
@@ -61,6 +68,53 @@ const iconMap = {
   offline: WifiOff,
   travel: Route,
   tools: Compass,
+};
+
+const styleMap: Record<
+  CapabilityKey,
+  CapabilityStyle
+> = {
+  navigation: {
+    background: "#F2F5FF",
+    iconBackground: "#DDE7FF",
+    accent: "#3976DA",
+    badgeBackground: "#E7EEFF",
+  },
+
+  weather: {
+    background: "#ECFAF8",
+    iconBackground: "#D5F2EE",
+    accent: "#138F88",
+    badgeBackground: "#DFF6F2",
+  },
+
+  nearby: {
+    background: "#EFF9F3",
+    iconBackground: "#DDF3E6",
+    accent: "#279765",
+    badgeBackground: "#E3F5EA",
+  },
+
+  offline: {
+    background: "#EEF5FF",
+    iconBackground: "#DCEAFF",
+    accent: "#3478D7",
+    badgeBackground: "#E2EEFF",
+  },
+
+  travel: {
+    background: "#EFF8FA",
+    iconBackground: "#DCEFF3",
+    accent: "#24889A",
+    badgeBackground: "#E2F2F5",
+  },
+
+  tools: {
+    background: "#F7F1FF",
+    iconBackground: "#EADFFF",
+    accent: "#7356DF",
+    badgeBackground: "#EEE6FF",
+  },
 };
 
 function unique(
@@ -242,8 +296,7 @@ export default function CoreCapabilities({
   const safetyFeatures = [
     {
       icon: LocateFixed,
-      title:
-        "Real-time tracking",
+      title: "Real-time tracking",
       description:
         "Track precise location as it changes.",
     },
@@ -256,29 +309,25 @@ export default function CoreCapabilities({
     },
     {
       icon: Users,
-      title:
-        "Private circles",
+      title: "Private circles",
       description:
         "Create groups for family, friends and teams.",
     },
     {
       icon: MapPin,
-      title:
-        "Location sharing",
+      title: "Location sharing",
       description:
         "Share live location with people you choose.",
     },
     {
       icon: ShieldCheck,
-      title:
-        "Geofencing alerts",
+      title: "Geofencing alerts",
       description:
         "Get alerts when someone enters or leaves an area.",
     },
     {
       icon: MessageCircle,
-      title:
-        "Circle chat",
+      title: "Circle chat",
       description:
         "Communicate directly with circle members.",
     },
@@ -295,12 +344,6 @@ export default function CoreCapabilities({
     "Add or remove circle members",
   ];
 
-  /*
-   * Correctly typed Motion variants.
-   *
-   * The previous TypeScript issue happened because
-   * the cubic-bezier number array was inferred as number[].
-   */
   const cardVariants: Variants = {
     hidden: reduceMotion
       ? {
@@ -308,7 +351,7 @@ export default function CoreCapabilities({
         }
       : {
           opacity: 0,
-          y: 30,
+          y: 34,
         },
 
     visible: {
@@ -330,38 +373,10 @@ export default function CoreCapabilities({
         staggerChildren:
           reduceMotion
             ? 0
-            : 0.09,
+            : 0.085,
       },
     },
   };
-
-  const safetyContainerVariants: Variants =
-    {
-      hidden: {},
-
-      visible: {
-        transition: {
-          staggerChildren:
-            reduceMotion
-              ? 0
-              : 0.08,
-        },
-      },
-    };
-
-  const assuranceContainerVariants: Variants =
-    {
-      hidden: {},
-
-      visible: {
-        transition: {
-          staggerChildren:
-            reduceMotion
-              ? 0
-              : 0.07,
-        },
-      },
-    };
 
   const assuranceItems = [
     {
@@ -389,10 +404,12 @@ export default function CoreCapabilities({
   return (
     <section
       id="capabilities"
-      className="bg-white px-4 py-20 sm:px-6 sm:py-28 lg:py-32"
+      className="relative overflow-hidden bg-white px-4 py-20 sm:px-6 sm:py-28 lg:py-32"
     >
-      <div className="mx-auto max-w-7xl">
-        {/* Section heading */}
+      <div className="pointer-events-none absolute left-1/2 top-[180px] h-[450px] w-[450px] -translate-x-1/2 rounded-full bg-[#745AE8]/[0.035] blur-[110px]" />
+
+      <div className="relative mx-auto max-w-7xl">
+        {/* Heading */}
         <motion.div
           initial={
             reduceMotion
@@ -411,16 +428,16 @@ export default function CoreCapabilities({
             amount: 0.25,
           }}
           transition={{
-            duration: 0.68,
+            duration: 0.65,
             ease: "easeOut",
           }}
           className="mx-auto max-w-3xl text-center"
         >
-          <p className="text-sm font-semibold text-[#6559DF]">
+          <p className="text-sm font-semibold text-[#6D56DD]">
             {eyebrow}
           </p>
 
-          <h2 className="mt-4 text-4xl font-semibold leading-[1] tracking-[-0.05em] text-[#101426] sm:text-5xl lg:text-6xl">
+          <h2 className="mt-4 text-4xl font-semibold leading-[1] tracking-[-0.055em] text-[#111629] sm:text-5xl lg:text-6xl">
             {title}
           </h2>
 
@@ -429,23 +446,26 @@ export default function CoreCapabilities({
           </p>
         </motion.div>
 
-        {/* Main capabilities */}
+        {/* Capabilities */}
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{
             once: true,
-            amount: 0.08,
+            amount: 0.05,
           }}
           variants={
             containerVariants
           }
-          className="mt-14 grid gap-x-8 border-y border-[#E6E9EF] md:grid-cols-2 lg:grid-cols-3"
+          className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-3"
         >
           {visibleItems.map(
             (item) => {
               const Icon =
                 iconMap[item.id];
+
+              const style =
+                styleMap[item.id];
 
               const group =
                 groups[item.id];
@@ -470,47 +490,66 @@ export default function CoreCapabilities({
                   variants={
                     cardVariants
                   }
+                  whileHover={
+                    reduceMotion
+                      ? undefined
+                      : {
+                          y: -5,
+                        }
+                  }
                   key={item.id}
                   id={item.id}
-                  className="scroll-mt-24 border-b border-[#E6E9EF] py-8 md:px-5 lg:px-7"
+                  className="scroll-mt-24 overflow-hidden rounded-[26px] border border-[#E8E8EF] p-6 shadow-[0_14px_40px_rgba(38,43,72,0.045)]"
+                  style={{
+                    backgroundColor:
+                      style.background,
+                  }}
                 >
-                  {/* Icon */}
-                  <motion.div
-                    whileHover={
-                      reduceMotion
-                        ? undefined
-                        : {
-                            y: -3,
-                            scale:
-                              1.04,
-                          }
-                    }
-                    transition={{
-                      duration: 0.2,
-                    }}
-                    className="flex h-11 w-11 items-center justify-center rounded-[15px] bg-[#F2F3F7]"
-                  >
-                    <Icon className="h-5 w-5 text-[#5E59C8]" />
-                  </motion.div>
+                  {/* Top row */}
+                  <div className="flex items-start justify-between gap-4">
+                    <div
+                      className="flex h-12 w-12 items-center justify-center rounded-[16px]"
+                      style={{
+                        backgroundColor:
+                          style.iconBackground,
+                      }}
+                    >
+                      <Icon
+                        className="h-5 w-5"
+                        style={{
+                          color:
+                            style.accent,
+                        }}
+                      />
+                    </div>
 
-                  <p className="mt-6 text-xs font-semibold uppercase tracking-[0.13em] text-[#9398A7]">
-                    {item.label}
-                  </p>
+                    <span
+                      className="rounded-full px-3 py-1.5 text-[9px] font-bold uppercase tracking-[0.11em]"
+                      style={{
+                        backgroundColor:
+                          style.badgeBackground,
+                        color:
+                          style.accent,
+                      }}
+                    >
+                      {item.label}
+                    </span>
+                  </div>
 
-                  <h3 className="mt-2 text-2xl font-semibold tracking-[-0.04em] text-[#151A2C]">
+                  <h3 className="mt-6 text-2xl font-semibold leading-7 tracking-[-0.045em] text-[#181D2F]">
                     {item.title}
                   </h3>
 
-                  <p className="mt-3 text-sm leading-6 text-[#777F91]">
+                  <p className="mt-3 min-h-[72px] text-sm leading-6 text-[#70798B]">
                     {
                       item.description
                     }
                   </p>
 
-                  {/* Feature chips */}
+                  {/* Chips */}
                   <motion.div
                     layout
-                    className="mt-6 flex flex-wrap gap-2"
+                    className="mt-5 flex flex-wrap gap-2"
                   >
                     {visibleFeatures.map(
                       (
@@ -530,23 +569,22 @@ export default function CoreCapabilities({
                                 }
                           }
                           animate={{
-                            opacity:
-                              1,
+                            opacity: 1,
                             scale: 1,
                           }}
                           transition={{
                             duration:
-                              0.25,
+                              0.22,
                             delay:
                               reduceMotion
                                 ? 0
                                 : index *
-                                  0.015,
+                                  0.012,
                           }}
                           key={
                             feature
                           }
-                          className="rounded-full bg-[#F5F6F9] px-3 py-1.5 text-[11px] font-medium text-[#61697B]"
+                          className="rounded-full border border-white/80 bg-white/80 px-3 py-1.5 text-[10px] font-medium text-[#596175]"
                         >
                           {feature}
                         </motion.span>
@@ -554,7 +592,6 @@ export default function CoreCapabilities({
                     )}
                   </motion.div>
 
-                  {/* Expand button */}
                   {group.more.length >
                     0 && (
                     <button
@@ -566,7 +603,11 @@ export default function CoreCapabilities({
                             : item.id,
                         )
                       }
-                      className="mt-5 flex items-center gap-1.5 text-xs font-semibold text-[#6257D5] transition-colors hover:text-[#5148C2]"
+                      className="mt-5 flex min-h-9 items-center gap-1.5 text-xs font-semibold"
+                      style={{
+                        color:
+                          style.accent,
+                      }}
                     >
                       {isExpanded
                         ? "Show less"
@@ -582,80 +623,97 @@ export default function CoreCapabilities({
                     </button>
                   )}
 
-                  {/* Weather mini summary */}
+                  {/* Weather detail */}
                   {item.id ===
                     "weather" && (
                     <motion.div
                       layout
-                      className="mt-6 border-t border-[#ECEEF3] pt-5"
+                      className="mt-5 flex items-end justify-between rounded-[18px] bg-white/75 p-4"
                     >
-                      <div className="flex items-end justify-between gap-4">
-                        <div>
-                          <p className="text-3xl font-semibold tracking-[-0.05em] text-[#171C2F]">
-                            {
-                              weather.temperature
-                            }
-                          </p>
+                      <div>
+                        <p className="text-[9px] font-medium text-[#8D94A3]">
+                          Current
+                        </p>
 
-                          <p className="mt-1 text-xs text-[#7F8798]">
-                            {
-                              weather.condition
-                            }
-                          </p>
-                        </div>
+                        <p className="mt-1 text-3xl font-semibold tracking-[-0.055em] text-[#192031]">
+                          {
+                            weather.temperature
+                          }
+                        </p>
 
-                        <div className="text-right">
-                          <p className="text-xs font-semibold text-[#318271]">
-                            AQI{" "}
-                            {
-                              weather
-                                .aqi
-                                .score
-                            }
-                          </p>
+                        <p className="mt-1 text-[10px] text-[#70798A]">
+                          {
+                            weather.condition
+                          }
+                        </p>
+                      </div>
 
-                          <p className="mt-1 text-[10px] text-[#7E8797]">
-                            {
-                              weather
-                                .aqi
-                                .label
-                            }
-                          </p>
-                        </div>
+                      <div className="text-right">
+                        <p className="text-[9px] text-[#8D94A3]">
+                          Air quality
+                        </p>
+
+                        <p className="mt-1 text-sm font-bold text-[#168C74]">
+                          AQI{" "}
+                          {
+                            weather
+                              .aqi
+                              .score
+                          }
+                        </p>
+
+                        <p className="text-[9px] text-[#168C74]">
+                          {
+                            weather
+                              .aqi
+                              .label
+                          }
+                        </p>
                       </div>
                     </motion.div>
                   )}
 
-                  {/* Travel mini summary */}
+                  {/* Travel detail */}
                   {item.id ===
                     "travel" && (
                     <motion.div
                       layout
-                      className="mt-6 border-t border-[#ECEEF3] pt-5"
+                      className="mt-5 grid grid-cols-3 gap-2 rounded-[18px] bg-white/75 p-3"
                     >
-                      <div className="flex items-center justify-between gap-4">
-                        <div>
-                          <p className="text-[10px] uppercase tracking-[0.11em] text-[#979DAC]">
-                            Example
-                            journey
-                          </p>
+                      <div>
+                        <p className="text-[8px] text-[#9298A6]">
+                          Time
+                        </p>
 
-                          <p className="mt-1 text-sm font-semibold text-[#22273A]">
-                            {
-                              travel
-                                .planner
-                                .duration
-                            }{" "}
-                            ·{" "}
-                            {
-                              travel
-                                .planner
-                                .distance
-                            }
-                          </p>
-                        </div>
+                        <p className="mt-1 text-xs font-bold text-[#252A3A]">
+                          {
+                            travel
+                              .planner
+                              .duration
+                          }
+                        </p>
+                      </div>
 
-                        <p className="text-xs font-medium text-[#318271]">
+                      <div>
+                        <p className="text-[8px] text-[#9298A6]">
+                          Distance
+                        </p>
+
+                        <p className="mt-1 text-xs font-bold text-[#252A3A]">
+                          {
+                            travel
+                              .planner
+                              .distance
+                          }
+                        </p>
+                      </div>
+
+                      <div>
+                        <p className="text-[8px] text-[#9298A6]">
+                          Status
+                        </p>
+
+                        <p className="mt-1 text-[10px] font-bold text-[#198477]">
                           {
                             travel
                               .planner
@@ -671,7 +729,7 @@ export default function CoreCapabilities({
           )}
         </motion.div>
 
-        {/* Location + Safety */}
+        {/* Location & Safety */}
         <motion.div
           id="safety"
           initial={
@@ -690,69 +748,64 @@ export default function CoreCapabilities({
           }}
           viewport={{
             once: true,
-            amount: 0.18,
+            amount: 0.15,
           }}
           transition={{
             duration: 0.7,
             ease: "easeOut",
           }}
-          className="scroll-mt-24 mt-14 rounded-[28px] bg-[#F7F8FB] p-6 sm:p-8 lg:p-10"
+          className="scroll-mt-24 relative mt-16 overflow-hidden rounded-[30px] border border-[#DEDDF0] bg-[#F4F0FF] p-6 sm:p-8 lg:p-10"
         >
-          <div className="grid gap-8 lg:grid-cols-[0.7fr_1.3fr] lg:gap-14">
-            {/* Left */}
-            <div>
-              <motion.div
-                whileHover={
-                  reduceMotion
-                    ? undefined
-                    : {
-                        rotate:
-                          -3,
-                        scale:
-                          1.04,
-                      }
-                }
-                transition={{
-                  duration: 0.2,
-                }}
-                className="flex h-11 w-11 items-center justify-center rounded-[15px] bg-white"
-              >
-                <ShieldCheck className="h-5 w-5 text-[#5E59C8]" />
-              </motion.div>
+          <div className="pointer-events-none absolute -right-28 -top-32 h-80 w-80 rounded-full bg-[#7254E5]/10 blur-[85px]" />
 
-              <p className="mt-6 text-xs font-semibold uppercase tracking-[0.13em] text-[#9398A7]">
+          <div className="pointer-events-none absolute -bottom-32 left-[30%] h-72 w-72 rounded-full bg-[#21B8AA]/10 blur-[90px]" />
+
+          <div className="relative grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-14">
+            {/* Intro */}
+            <div>
+              <div className="flex h-12 w-12 items-center justify-center rounded-[16px] bg-[#E3D9FF]">
+                <ShieldCheck className="h-5 w-5 text-[#6F52DF]" />
+              </div>
+
+              <p className="mt-6 text-xs font-bold uppercase tracking-[0.12em] text-[#6D56DD]">
                 Location & Safety
               </p>
 
-              <h3 className="mt-2 text-3xl font-semibold tracking-[-0.045em] text-[#151A2C]">
+              <h3 className="mt-3 max-w-md text-3xl font-semibold leading-[1.08] tracking-[-0.05em] text-[#171C2D] sm:text-4xl">
                 Stay connected to
                 the people and
                 places that matter.
               </h3>
 
-              <p className="mt-4 max-w-md text-sm leading-7 text-[#747C8F]">
+              <p className="mt-5 max-w-md text-sm leading-7 text-[#70788A]">
                 Live location,
-                sharing, private
-                circles and safety
+                private circles,
+                sharing and safety
                 tools extend GPS
-                Maps beyond basic
+                Maps beyond
                 navigation.
               </p>
+
+              <div className="mt-7 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#7655E6] via-[#4B7EDB] to-[#21B6AA] px-4 py-2 text-xs font-semibold text-white shadow-[0_12px_30px_rgba(84,87,200,0.18)]">
+                <Users className="h-4 w-4" />
+
+                Live Tracking
+              </div>
             </div>
 
-            {/* Right */}
+            {/* Safety tools */}
             <motion.div
               initial="hidden"
               whileInView="visible"
               viewport={{
                 once: true,
-                amount: 0.2,
+                amount: 0.15,
               }}
               variants={
-                safetyContainerVariants
+                containerVariants
               }
             >
-              <div className="grid gap-x-7 gap-y-6 sm:grid-cols-2">
+              <div className="grid gap-3 sm:grid-cols-2">
                 {safetyFeatures.map(
                   ({
                     icon:
@@ -766,21 +819,11 @@ export default function CoreCapabilities({
                       variants={
                         cardVariants
                       }
-                      className="flex gap-3"
+                      className="flex gap-3 rounded-[18px] border border-white bg-white/80 p-4 shadow-[0_8px_25px_rgba(58,50,100,0.045)]"
                     >
-                      <motion.div
-                        whileHover={
-                          reduceMotion
-                            ? undefined
-                            : {
-                                scale:
-                                  1.06,
-                              }
-                        }
-                        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[12px] bg-white"
-                      >
-                        <FeatureIcon className="h-4 w-4 text-[#6259CE]" />
-                      </motion.div>
+                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[13px] bg-[#EEE8FF]">
+                        <FeatureIcon className="h-4 w-4 text-[#6B52DA]" />
+                      </div>
 
                       <div>
                         <p className="text-sm font-semibold text-[#24293B]">
@@ -798,57 +841,34 @@ export default function CoreCapabilities({
                 )}
               </div>
 
-              {/* Tracking chips */}
-              <motion.div
-                initial={
-                  reduceMotion
-                    ? false
-                    : {
-                        opacity: 0,
-                        y: 15,
-                      }
-                }
-                whileInView={{
-                  opacity: 1,
-                  y: 0,
-                }}
-                viewport={{
-                  once: true,
-                }}
-                transition={{
-                  duration: 0.5,
-                  delay: 0.3,
-                  ease: "easeOut",
-                }}
-                className="mt-7 flex flex-wrap gap-2 border-t border-[#E3E6EC] pt-6"
-              >
+              <div className="mt-5 flex flex-wrap gap-2 border-t border-[#DED8EC] pt-5">
                 {trackingUseCases.map(
                   (feature) => (
                     <span
                       key={feature}
-                      className="rounded-full bg-white px-3 py-1.5 text-[11px] font-medium text-[#61697B]"
+                      className="rounded-full bg-white/80 px-3 py-1.5 text-[10px] font-medium text-[#61697B]"
                     >
                       {feature}
                     </span>
                   ),
                 )}
-              </motion.div>
+              </div>
             </motion.div>
           </div>
         </motion.div>
 
-        {/* Compact feature assurance row */}
+        {/* Extra features */}
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{
             once: true,
-            amount: 0.3,
+            amount: 0.25,
           }}
           variants={
-            assuranceContainerVariants
+            containerVariants
           }
-          className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4"
+          className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4"
         >
           {assuranceItems.map(
             ({
@@ -868,12 +888,11 @@ export default function CoreCapabilities({
                         y: -3,
                       }
                 }
-                transition={{
-                  duration: 0.2,
-                }}
-                className="flex items-center gap-3 rounded-[16px] border border-[#E7E9EF] bg-white px-4 py-4 transition-shadow hover:shadow-[0_10px_30px_rgba(33,41,70,0.06)]"
+                className="flex items-center gap-3 rounded-[18px] border border-[#E7E8EE] bg-white px-4 py-4 shadow-[0_8px_24px_rgba(38,45,74,0.035)]"
               >
-                <FeatureIcon className="h-4 w-4 shrink-0 text-[#6559DF]" />
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[12px] bg-[#F1EDFF]">
+                  <FeatureIcon className="h-4 w-4 text-[#6A55DB]" />
+                </div>
 
                 <p className="text-xs font-semibold text-[#4E5669]">
                   {label}

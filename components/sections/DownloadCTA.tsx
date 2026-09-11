@@ -3,19 +3,14 @@
 import Image from "next/image";
 
 import {
-  useRef,
-} from "react";
-
-import {
   motion,
   useReducedMotion,
-  useScroll,
-  useTransform,
 } from "motion/react";
 
 import {
   ArrowUpRight,
   Check,
+  Star,
 } from "lucide-react";
 
 import type {
@@ -33,50 +28,18 @@ export default function DownloadCTA({
   content,
   playStoreUrl,
 }: DownloadCTAProps) {
-  const sectionRef =
-    useRef<HTMLElement | null>(
-      null,
-    );
-
   const reduceMotion =
     useReducedMotion();
 
-  const {
-    scrollYProgress,
-  } = useScroll({
-    target: sectionRef,
-    offset: [
-      "start end",
-      "end start",
-    ],
-  });
-
-  const glowY =
-    useTransform(
-      scrollYProgress,
-      [0, 1],
-      [-40, 55],
-    );
-
-  const iconY =
-    useTransform(
-      scrollYProgress,
-      [0, 1],
-      [-12, 20],
-    );
-
   return (
-    <section
-      ref={sectionRef}
-      className="bg-white px-4 py-20 sm:px-6 sm:py-28"
-    >
+    <section className="bg-white px-4 py-20 sm:px-6 sm:py-28">
       <motion.div
         initial={
           reduceMotion
             ? false
             : {
                 opacity: 0,
-                y: 36,
+                y: 35,
                 scale: 0.985,
               }
         }
@@ -90,51 +53,19 @@ export default function DownloadCTA({
           amount: 0.18,
         }}
         transition={{
-          duration: 0.75,
+          duration: 0.7,
           ease: "easeOut",
         }}
-        className="relative mx-auto max-w-7xl overflow-hidden rounded-[32px] border border-[#E5E4F2] bg-[#F7F6FF] px-6 py-12 sm:px-10 sm:py-16 lg:px-14 lg:py-20"
+        className="relative mx-auto max-w-7xl overflow-hidden rounded-[32px] border border-[#E3E0F0] bg-[#F7F4FF] px-6 py-12 sm:px-10 sm:py-16 lg:px-14 lg:py-20"
       >
-        {/* Background decoration */}
-        <motion.div
-          style={
-            reduceMotion
-              ? undefined
-              : {
-                  y: glowY,
-                }
-          }
-          className="pointer-events-none absolute right-[-90px] top-[-120px] h-[380px] w-[380px] rounded-full bg-[#745BE9]/10 blur-[105px]"
-        />
+        <div className="pointer-events-none absolute -right-20 -top-24 h-[360px] w-[360px] rounded-full bg-[#7656E5]/10 blur-[100px]" />
 
-        <div className="pointer-events-none absolute bottom-[-160px] left-[-130px] h-[320px] w-[320px] rounded-full bg-[#1A67C9]/[0.06] blur-[95px]" />
+        <div className="pointer-events-none absolute -bottom-28 left-[35%] h-[300px] w-[300px] rounded-full bg-[#22B4A6]/[0.07] blur-[90px]" />
 
-        <div className="relative grid gap-12 lg:grid-cols-[1fr_0.62fr] lg:items-center">
-          {/* Content */}
-          <motion.div
-            initial={
-              reduceMotion
-                ? false
-                : {
-                    opacity: 0,
-                    x: -24,
-                  }
-            }
-            whileInView={{
-              opacity: 1,
-              x: 0,
-            }}
-            viewport={{
-              once: true,
-              amount: 0.25,
-            }}
-            transition={{
-              duration: 0.65,
-              delay: 0.08,
-              ease: "easeOut",
-            }}
-          >
-            <p className="text-sm font-semibold text-[#6559DF]">
+        <div className="relative grid gap-12 lg:grid-cols-[1fr_0.65fr] lg:items-center">
+          {/* Copy */}
+          <div>
+            <p className="text-sm font-semibold text-[#6C55DD]">
               {content.eyebrow}
             </p>
 
@@ -148,8 +79,7 @@ export default function DownloadCTA({
               }
             </p>
 
-            {/* Benefits */}
-            <div className="mt-7 flex flex-wrap gap-3">
+            <div className="mt-7 flex flex-wrap gap-2.5">
               {content.benefits.map(
                 (
                   benefit,
@@ -178,13 +108,12 @@ export default function DownloadCTA({
                       duration:
                         0.4,
                       delay:
-                        0.16 +
                         index *
-                          0.06,
+                        0.06,
                     }}
-                    className="flex items-center gap-2 rounded-full border border-[#E3E1F1] bg-white px-3.5 py-2 text-xs font-medium text-[#50586C]"
+                    className="flex items-center gap-2 rounded-full border border-[#E3E0F0] bg-white px-3.5 py-2 text-xs font-medium text-[#51596B]"
                   >
-                    <Check className="h-3.5 w-3.5 text-[#6559DF]" />
+                    <Check className="h-3.5 w-3.5 text-[#6D55DF]" />
 
                     {benefit}
                   </motion.div>
@@ -192,42 +121,34 @@ export default function DownloadCTA({
               )}
             </div>
 
-            {/* CTA */}
             <a
               href={playStoreUrl}
               target="_blank"
               rel="noreferrer"
-              className="group mt-9 inline-flex min-h-12 items-center gap-2.5 rounded-full bg-[#111629] px-6 py-3.5 text-sm font-semibold text-white transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_34px_rgba(17,22,41,0.18)]"
+              className="group mt-9 inline-flex min-h-12 items-center gap-2.5 rounded-full bg-[#6F52E5] px-6 py-3.5 text-sm font-semibold text-white shadow-[0_14px_32px_rgba(111,82,229,0.23)] transition duration-300 hover:-translate-y-0.5 hover:bg-[#6148D2]"
             >
               {content.primaryCta}
 
               <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </a>
 
-            <p className="mt-4 text-xs text-[#9A9FAE]">
+            <p className="mt-4 text-xs text-[#969CAA]">
               Essential features
               available free ·
               Premium options
               available
             </p>
-          </motion.div>
+          </div>
 
-          {/* App identity visual */}
+          {/* App install card */}
           <motion.div
-            style={
-              reduceMotion
-                ? undefined
-                : {
-                    y: iconY,
-                  }
-            }
             initial={
               reduceMotion
                 ? false
                 : {
                     opacity: 0,
                     y: 25,
-                    scale: 0.94,
+                    scale: 0.96,
                   }
             }
             whileInView={{
@@ -240,44 +161,73 @@ export default function DownloadCTA({
               amount: 0.3,
             }}
             transition={{
-              duration: 0.7,
-              delay: 0.1,
+              duration: 0.65,
+              delay: 0.08,
               ease: "easeOut",
             }}
-            className="flex justify-center lg:justify-end"
+            className="mx-auto w-full max-w-[345px] lg:ml-auto"
           >
-            <div className="relative w-full max-w-[330px] rounded-[30px] border border-white bg-white/80 p-6 shadow-[0_24px_70px_rgba(70,66,130,0.10)] backdrop-blur-sm sm:p-8"
-            >
-              <div className="pointer-events-none absolute inset-0 rounded-[30px] bg-gradient-to-br from-white/70 to-[#EEEAFE]/40" />
-
-              <div className="relative">
+            <div className="rounded-[30px] border border-white bg-white/85 p-6 shadow-[0_24px_70px_rgba(71,62,125,0.11)] backdrop-blur-md sm:p-7">
+              <div className="flex items-center gap-4">
                 <Image
                   src="/app-icon.png"
                   alt={`${brandName} app icon`}
-                  width={150}
-                  height={150}
-                  className="mx-auto h-[118px] w-[118px] rounded-[28px] object-cover shadow-[0_18px_45px_rgba(74,74,120,0.18)] sm:h-[138px] sm:w-[138px]"
+                  width={84}
+                  height={84}
+                  className="h-[76px] w-[76px] rounded-[20px] object-cover shadow-[0_12px_30px_rgba(84,73,160,0.16)]"
                 />
 
-                <div className="mt-6 text-center">
-                  <p className="text-base font-semibold tracking-[-0.025em] text-[#151A2B]">
+                <div>
+                  <p className="text-sm font-bold leading-5 tracking-[-0.025em] text-[#171C2D]">
                     {brandName}
                   </p>
 
-                  <p className="mt-1 text-xs text-[#8C93A3]">
-                    Available on Google Play
+                  <p className="mt-1 text-[10px] text-[#9197A6]">
+                    Navigation &
+                    Travel
+                  </p>
+                </div>
+              </div>
+
+              <div className="mt-6 grid grid-cols-2 gap-3">
+                <div className="rounded-[16px] bg-[#F5F2FF] p-3">
+                  <p className="text-[9px] font-medium text-[#8D93A1]">
+                    Downloads
+                  </p>
+
+                  <p className="mt-1 text-lg font-bold tracking-[-0.04em] text-[#202537]">
+                    10Cr+
                   </p>
                 </div>
 
-                <div className="mt-6 flex items-center justify-center gap-2">
-                  <span className="rounded-full bg-[#F2F1FA] px-3 py-1.5 text-[10px] font-semibold text-[#6559DF]">
-                    10Cr+ downloads
-                  </span>
+                <div className="rounded-[16px] bg-[#EFF9F7] p-3">
+                  <p className="text-[9px] font-medium text-[#8D93A1]">
+                    Google Play
+                  </p>
 
-                  <span className="rounded-full bg-[#F2F1FA] px-3 py-1.5 text-[10px] font-semibold text-[#6559DF]">
-                    4.1★
-                  </span>
+                  <div className="mt-1 flex items-center gap-1">
+                    <p className="text-lg font-bold tracking-[-0.04em] text-[#202537]">
+                      4.1
+                    </p>
+
+                    <Star className="h-4 w-4 fill-[#F3A71D] text-[#F3A71D]" />
+                  </div>
                 </div>
+              </div>
+
+              <div className="mt-5 flex items-center justify-between rounded-[16px] bg-gradient-to-r from-[#7656E5] via-[#4C7DD9] to-[#24B5A7] px-4 py-3 text-white">
+                <div>
+                  <p className="text-[9px] text-white/70">
+                    Ready for
+                  your next trip
+                  </p>
+
+                  <p className="mt-0.5 text-xs font-bold">
+                    Navigate smarter
+                  </p>
+                </div>
+
+                <ArrowUpRight className="h-4 w-4" />
               </div>
             </div>
           </motion.div>
