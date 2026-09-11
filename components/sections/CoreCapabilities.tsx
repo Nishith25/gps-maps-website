@@ -483,7 +483,10 @@ export default function CoreCapabilities({
         </div>
 
         {/* Location + Safety */}
-        <div className="mt-14 rounded-[28px] bg-[#F7F8FB] p-6 sm:p-8 lg:p-10">
+<div
+  id="safety"
+  className="scroll-mt-24 mt-14 rounded-[28px] bg-[#F7F8FB] p-6 sm:p-8 lg:p-10"
+>
           <div className="grid gap-8 lg:grid-cols-[0.7fr_1.3fr] lg:gap-14">
             <div>
               <div className="flex h-11 w-11 items-center justify-center rounded-[15px] bg-white">

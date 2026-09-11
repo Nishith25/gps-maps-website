@@ -62,20 +62,16 @@ export default function Navbar({
 
   const links = [
     [
+      "Home",
+      "#top",
+    ],
+    [
       navigation.featuresLabel,
       "#capabilities",
     ],
     [
-      navigation.weatherLabel,
-      "#weather",
-    ],
-    [
-      navigation.travelLabel,
-      "#travel",
-    ],
-    [
-      "Tools",
-      "#tools",
+      "Location & Safety",
+      "#safety",
     ],
     [
       navigation.faqLabel,
@@ -92,10 +88,14 @@ export default function Navbar({
       }`}
     >
       <div className="mx-auto flex min-h-[72px] max-w-7xl items-center justify-between gap-3 px-4 sm:px-6">
+        {/* Logo / Brand */}
         <a
           href="#top"
           className="flex min-w-0 items-center gap-3"
           aria-label={`${brand.name} home`}
+          onClick={() =>
+            setOpen(false)
+          }
         >
           <Image
             src="/app-icon.png"
@@ -107,7 +107,7 @@ export default function Navbar({
           />
 
           <div className="min-w-0">
-            {/* Exact full name on larger screens */}
+            {/* Full app name on desktop */}
             <p className="hidden max-w-[270px] truncate text-sm font-semibold tracking-[-0.02em] text-[#111629] md:block">
               {brand.name}
             </p>
@@ -123,13 +123,14 @@ export default function Navbar({
           </div>
         </a>
 
+        {/* Desktop Navigation */}
         <nav className="hidden items-center gap-7 lg:flex">
           {links.map(
             ([label, href]) => (
               <a
                 key={href}
                 href={href}
-                className="text-sm font-medium text-[#626A7D] transition hover:text-[#111629]"
+                className="text-sm font-medium text-[#626A7D] transition-colors hover:text-[#111629]"
               >
                 {label}
               </a>
@@ -137,6 +138,7 @@ export default function Navbar({
           )}
         </nav>
 
+        {/* Actions */}
         <div className="flex shrink-0 items-center gap-2">
           <a
             href={playStoreUrl}
@@ -149,6 +151,7 @@ export default function Navbar({
             <ArrowUpRight className="h-4 w-4" />
           </a>
 
+          {/* Mobile Menu */}
           <button
             type="button"
             onClick={() =>
@@ -169,6 +172,7 @@ export default function Navbar({
         </div>
       </div>
 
+      {/* Mobile Navigation */}
       {open && (
         <div className="border-t border-[#ECEEF3] bg-white px-4 pb-5 pt-3 lg:hidden">
           <div className="mx-auto flex max-w-7xl flex-col">
@@ -191,6 +195,9 @@ export default function Navbar({
               href={playStoreUrl}
               target="_blank"
               rel="noreferrer"
+              onClick={() =>
+                setOpen(false)
+              }
               className="mt-3 flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#111629] px-5 text-sm font-semibold text-white"
             >
               {
