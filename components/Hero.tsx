@@ -2,7 +2,16 @@
 
 import Image from "next/image";
 
-import { motion } from "motion/react";
+import {
+  useRef,
+} from "react";
+
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from "motion/react";
 
 import {
   ArrowRight,
@@ -33,27 +42,89 @@ export default function Hero({
   googlePlayLabel,
   stats,
 }: HeroProps) {
+  const sectionRef =
+    useRef<HTMLElement | null>(
+      null,
+    );
+
+  const reduceMotion =
+    useReducedMotion();
+
+  const {
+    scrollYProgress,
+  } = useScroll({
+    target: sectionRef,
+    offset: [
+      "start start",
+      "end start",
+    ],
+  });
+
+  const phoneY =
+    useTransform(
+      scrollYProgress,
+      [0, 1],
+      [0, 55],
+    );
+
+  const phoneScale =
+    useTransform(
+      scrollYProgress,
+      [0, 1],
+      [1, 0.975],
+    );
+
+  const glowY =
+    useTransform(
+      scrollYProgress,
+      [0, 1],
+      [0, 70],
+    );
+
   return (
     <section
+      ref={sectionRef}
       id="top"
       className="relative overflow-hidden bg-white px-4 pb-24 pt-32 sm:px-6 sm:pt-36"
     >
-      <div className="pointer-events-none absolute left-1/2 top-[300px] h-[450px] w-[450px] -translate-x-1/2 rounded-full bg-[#6659DF]/5 blur-[110px]" />
+      {/* Soft scroll-reactive glow */}
+      <motion.div
+        style={
+          reduceMotion
+            ? undefined
+            : {
+                y: glowY,
+              }
+        }
+        className="pointer-events-none absolute left-1/2 top-[300px] h-[450px] w-[450px] -translate-x-1/2 rounded-full bg-[#6659DF]/5 blur-[110px]"
+      />
 
       <div className="relative mx-auto max-w-7xl">
         <div className="mx-auto max-w-4xl text-center">
-          {/* OFFICIAL APP BRAND */}
+          {/* Official app branding */}
           <motion.div
-            initial={{
-              opacity: 0,
-              y: 12,
-            }}
+            initial={
+              reduceMotion
+                ? false
+                : {
+                    opacity: 0,
+                    y: 18,
+                    scale: 0.97,
+                  }
+            }
             animate={{
               opacity: 1,
               y: 0,
+              scale: 1,
             }}
             transition={{
-              duration: 0.5,
+              duration: 0.55,
+              ease: [
+                0.22,
+                1,
+                0.36,
+                1,
+              ],
             }}
             className="mx-auto flex w-fit items-center gap-3 rounded-[18px] border border-[#E6E8EF] bg-white p-2.5 pr-4 shadow-[0_8px_30px_rgba(32,40,68,0.06)]"
           >
@@ -77,58 +148,102 @@ export default function Hero({
             </div>
           </motion.div>
 
+          {/* Main headline */}
           <motion.h1
-            initial={{
-              opacity: 0,
-              y: 18,
-            }}
+            initial={
+              reduceMotion
+                ? false
+                : {
+                    opacity: 0,
+                    y: 28,
+                  }
+            }
             animate={{
               opacity: 1,
               y: 0,
             }}
             transition={{
-              duration: 0.7,
+              duration: 0.75,
               delay: 0.08,
+              ease: [
+                0.22,
+                1,
+                0.36,
+                1,
+              ],
             }}
             className="mt-9 text-[47px] font-semibold leading-[0.95] tracking-[-0.06em] text-[#101426] sm:text-[68px] lg:text-[84px]"
           >
             {titleTop}
 
-            <span className="mt-2 block text-[#6256D9]">
+            <motion.span
+              initial={
+                reduceMotion
+                  ? false
+                  : {
+                      opacity: 0,
+                      y: 14,
+                    }
+              }
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
+              transition={{
+                duration: 0.7,
+                delay: 0.16,
+                ease: [
+                  0.22,
+                  1,
+                  0.36,
+                  1,
+                ],
+              }}
+              className="mt-2 block text-[#6256D9]"
+            >
               {titleBottom}
-            </span>
+            </motion.span>
           </motion.h1>
 
           <motion.p
-            initial={{
-              opacity: 0,
-              y: 12,
-            }}
+            initial={
+              reduceMotion
+                ? false
+                : {
+                    opacity: 0,
+                    y: 18,
+                  }
+            }
             animate={{
               opacity: 1,
               y: 0,
             }}
             transition={{
-              duration: 0.6,
-              delay: 0.16,
+              duration: 0.65,
+              delay: 0.2,
             }}
             className="mx-auto mt-7 max-w-2xl text-base leading-8 text-[#6E7689] sm:text-lg"
           >
             {description}
           </motion.p>
 
+          {/* CTA buttons */}
           <motion.div
-            initial={{
-              opacity: 0,
-              y: 12,
-            }}
+            initial={
+              reduceMotion
+                ? false
+                : {
+                    opacity: 0,
+                    y: 18,
+                  }
+            }
             animate={{
               opacity: 1,
               y: 0,
             }}
             transition={{
-              duration: 0.6,
-              delay: 0.23,
+              duration: 0.65,
+              delay: 0.28,
             }}
             className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row"
           >
@@ -136,31 +251,38 @@ export default function Hero({
               href={playStoreUrl}
               target="_blank"
               rel="noreferrer"
-              className="group inline-flex min-h-12 w-full items-center justify-center gap-2.5 rounded-full bg-[#111629] px-6 py-3.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 sm:w-auto"
+              className="group inline-flex min-h-12 w-full items-center justify-center gap-2.5 rounded-full bg-[#111629] px-6 py-3.5 text-sm font-semibold text-white transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_30px_rgba(17,22,41,0.18)] sm:w-auto"
             >
               {googlePlayLabel}
 
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
             </a>
 
             <a
               href="#capabilities"
-              className="inline-flex min-h-12 w-full items-center justify-center rounded-full border border-[#DFE3EA] px-6 py-3.5 text-sm font-semibold text-[#30364A] transition hover:border-[#C7CCD6] sm:w-auto"
+              className="inline-flex min-h-12 w-full items-center justify-center rounded-full border border-[#DFE3EA] px-6 py-3.5 text-sm font-semibold text-[#30364A] transition duration-300 hover:-translate-y-0.5 hover:border-[#C7CCD6] hover:bg-[#FAFAFC] sm:w-auto"
             >
               Explore features
             </a>
           </motion.div>
 
+          {/* Statistics */}
           <motion.div
-            initial={{
-              opacity: 0,
-            }}
+            initial={
+              reduceMotion
+                ? false
+                : {
+                    opacity: 0,
+                    y: 15,
+                  }
+            }
             animate={{
               opacity: 1,
+              y: 0,
             }}
             transition={{
-              duration: 0.6,
-              delay: 0.3,
+              duration: 0.65,
+              delay: 0.36,
             }}
             className="mx-auto mt-9 grid max-w-xl grid-cols-3 divide-x divide-[#E8EAF0]"
           >
@@ -171,31 +293,57 @@ export default function Hero({
                   stat,
                   index,
                 ) => (
-                  <div
+                  <motion.div
                     key={`${stat.label}-${index}`}
+                    initial={
+                      reduceMotion
+                        ? false
+                        : {
+                            opacity: 0,
+                            y: 10,
+                          }
+                    }
+                    animate={{
+                      opacity: 1,
+                      y: 0,
+                    }}
+                    transition={{
+                      duration: 0.45,
+                      delay:
+                        0.42 +
+                        index *
+                          0.08,
+                    }}
                     className="px-2 sm:px-5"
                   >
                     <p className="text-lg font-semibold tracking-[-0.035em] text-[#151A2C] sm:text-xl">
-                      {
-                        stat.value
-                      }
+                      {stat.value}
                     </p>
 
                     <p className="mt-1 text-[10px] leading-4 text-[#9399A8] sm:text-xs">
-                      {
-                        stat.label
-                      }
+                      {stat.label}
                     </p>
-                  </div>
+                  </motion.div>
                 ),
               )}
           </motion.div>
         </div>
 
-        {/* Phone stays immediately in the opening */}
-        <div className="relative mt-12 sm:mt-14">
+        {/* Phone with subtle scroll parallax */}
+        <motion.div
+          style={
+            reduceMotion
+              ? undefined
+              : {
+                  y: phoneY,
+                  scale:
+                    phoneScale,
+                }
+          }
+          className="relative mt-12 sm:mt-14"
+        >
           <PhoneNavigationMockup />
-        </div>
+        </motion.div>
       </div>
     </section>
   );
