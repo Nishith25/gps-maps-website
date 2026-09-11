@@ -32,9 +32,6 @@ export default async function Home() {
       />
 
       <Hero
-        brandName={
-          content.brand.name
-        }
         titleTop={
           content.hero
             .heroTitleTop
