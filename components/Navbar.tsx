@@ -98,13 +98,14 @@ export default function Navbar({
           }
         >
           <Image
-            src="/app-icon.png"
-            alt={`${brand.name} app icon`}
-            width={42}
-            height={42}
-            priority
-            className="h-10 w-10 shrink-0 rounded-[12px] object-cover"
-          />
+  src="/app-icon.png"
+  alt={`${brand.name} app icon`}
+  width={42}
+  height={42}
+  priority
+  loading="eager"
+  className="h-10 w-10 shrink-0 rounded-[12px] object-cover"
+/>
 
           <div className="min-w-0">
             {/* Full app name on desktop */}
