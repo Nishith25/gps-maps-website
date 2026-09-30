@@ -5,7 +5,13 @@ import Navbar from "@/components/Navbar";
 import AboutProduct from "@/components/sections/AboutProduct";
 import CoreCapabilities from "@/components/sections/CoreCapabilities";
 import DownloadCTA from "@/components/sections/DownloadCTA";
+import EverythingInOne from "@/components/sections/EverythingInOne";
 import FAQ from "@/components/sections/FAQ";
+import NearbyPlaces from "@/components/sections/NearbyPlaces";
+import ProductSummary from "@/components/sections/ProductSummary";
+import TravelIntelligence from "@/components/sections/TravelIntelligence";
+import UtilityShowcase from "@/components/sections/UtilityShowcase";
+import WeatherIntelligence from "@/components/sections/WeatherIntelligence";
 
 import {
   getSiteContent,
@@ -55,10 +61,27 @@ export default async function Home() {
         stats={content.stats}
       />
 
+      <ProductSummary
+        items={content.capabilities.items}
+      />
+
       <AboutProduct
         content={
           content.immersive
         }
+      />
+
+      <WeatherIntelligence
+        content={content.weather}
+      />
+
+      <NearbyPlaces
+        content={content.utilities.nearby}
+      />
+
+      <TravelIntelligence
+        content={content.travel}
+        playStoreUrl={content.hero.playStoreUrl}
       />
 
       <CoreCapabilities
@@ -88,6 +111,12 @@ export default async function Home() {
           content.utilities
         }
       />
+
+      <UtilityShowcase
+        content={content.utilities}
+      />
+
+      <EverythingInOne />
 
       <DownloadCTA
         brandName={

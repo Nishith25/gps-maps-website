@@ -494,19 +494,26 @@ const fallbackFooter: FooterContent = {
 };
 
 const fallbackSEO: SEOContent = {
-  title: "GPS, Maps, Driving Directions",
+  title:
+    "GPS, Maps, Driving Directions | Navigation, Offline Maps & Weather",
 
   description:
-    "Voice navigation, offline maps, live weather, nearby places and intelligent travel tools.",
+    "GPS navigation with voice directions, offline maps, live weather, radar, AQI, nearby places, travel planning and live location tools.",
 
   keywords: [
     "GPS navigation",
-    "maps",
+    "driving directions",
     "voice navigation",
     "offline maps",
-    "weather",
-    "travel planner",
+    "weather radar",
+    "AQI",
     "nearby places",
+    "travel planner",
+    "live location",
+    "parking manager",
+    "digital compass",
+    "speedometer",
+    "translator",
   ],
 };
 
@@ -1242,27 +1249,7 @@ export async function getSiteContent(): Promise<SiteContent> {
         ),
       },
 
-      stats:
-        Array.isArray(document.stats) &&
-        document.stats.length > 0
-          ? document.stats.map((item, index) => {
-              const fallback =
-                fallbackStats[index] ??
-                fallbackStats[0];
-
-              return {
-                value: textOrFallback(
-                  item.value,
-                  fallback.value,
-                ),
-
-                label: textOrFallback(
-                  item.label,
-                  fallback.label,
-                ),
-              };
-            })
-          : fallbackStats,
+      stats: fallbackStats,
 
       hero: {
         heroTitleTop: textOrFallback(
