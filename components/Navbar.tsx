@@ -61,19 +61,12 @@ export default function Navbar({
   }, []);
 
   const links = [
-    ["Home", "#top"],
-    [
-      navigation.featuresLabel,
-      "#capabilities",
-    ],
-    [
-      "Location & Safety",
-      "#safety",
-    ],
-    [
-      navigation.faqLabel,
-      "#faq",
-    ],
+    ["Features", "#capabilities"],
+    ["Weather", "#weather"],
+    ["Travel", "#travel"],
+    ["Safety", "#safety"],
+    ["Tools", "#tools"],
+    [navigation.faqLabel, "#faq"],
   ];
 
   return (

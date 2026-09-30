@@ -28,8 +28,10 @@ type HeroProps = {
 const quickHighlights = [
   "Voice navigation",
   "Offline maps",
-  "Live tracking",
-  "Weather & travel",
+  "Weather & radar",
+  "Live location",
+  "AQI insights",
+  "Travel planner",
 ];
 
 export default function Hero({
@@ -84,7 +86,7 @@ export default function Hero({
             }}
             className="mx-auto inline-flex items-center rounded-full border border-[#E4E7EE] bg-white px-4 py-2 text-xs font-semibold text-[#5C6476] shadow-[0_8px_28px_rgba(25,32,55,0.04)] lg:mx-0"
           >
-            All-in-one GPS navigation app
+            Navigation · Weather · Offline Maps · Live Location
           </motion.div>
 
           <motion.h1

@@ -10,9 +10,9 @@ export const site = {
 
   hero: {
     titleTop: "Navigate smarter.",
-    titleBottom: "Explore with confidence.",
+    titleBottom: "Stay ready everywhere.",
     description:
-      "Voice navigation, offline maps, live weather, nearby places and intelligent travel tools — all in one powerful navigation experience.",
+      "Voice navigation, offline maps, weather radar, AQI, nearby discovery, live location and travel intelligence — all in one GPS experience.",
   },
 
   stats: [
@@ -21,63 +21,63 @@ export const site = {
       label: "Downloads",
     },
     {
-      value: "4.1★",
+      value: "4.0★",
       label: "Google Play",
     },
     {
-      value: "All-in-one",
-      label: "Travel Toolkit",
+      value: "1L+",
+      label: "Reviews",
     },
   ],
 
   capabilities: {
     eyebrow: "Built for every journey",
-    title: "Everything you need, wherever you go.",
+    title: "More than maps. Your complete travel toolkit.",
     description:
-      "From turn-by-turn navigation to live weather and offline maps, everything works together to make every journey easier.",
+      "Navigate, download maps, check weather and AQI, discover nearby places, plan around conditions and stay connected with live location tools.",
 
     items: [
       {
         id: "navigation",
         label: "Navigation",
-        title: "Smart navigation that keeps you moving.",
+        title: "Turn-by-turn navigation for real journeys.",
         description:
-          "Find routes, search destinations and navigate confidently with voice-assisted guidance.",
+          "Voice guidance, destination search, traffic awareness, route options and map tools help keep every trip moving.",
       },
       {
         id: "weather",
         label: "Live Weather",
-        title: "Know what’s ahead.",
+        title: "Weather intelligence before every journey.",
         description:
-          "Check live weather, hourly conditions and useful insights before you step outside.",
+          "Current weather, hourly forecasts, longer-range outlooks, radar, alerts and AQI help you prepare before leaving.",
       },
       {
         id: "nearby",
         label: "Nearby Places",
-        title: "Discover what’s around you.",
+        title: "See what’s around you.",
         description:
-          "Quickly explore restaurants, fuel stations, hospitals, shopping and useful places nearby.",
+          "Explore restaurants, cafes, fuel stations, hospitals, shopping, parking and other useful places around your location.",
       },
       {
         id: "offline",
         label: "Offline Maps",
-        title: "Navigate even without internet.",
+        title: "No signal. Still moving.",
         description:
-          "Download supported regions and keep essential map access ready when connectivity drops.",
+          "Download supported countries, regions or selected areas in advance and keep essential map access ready when connectivity drops.",
       },
       {
         id: "travel",
         label: "Travel Intelligence",
-        title: "Plan around real conditions.",
+        title: "Plan the trip around real conditions.",
         description:
-          "Combine travel planning, forecasts and activity conditions to make smarter decisions.",
+          "Combine route planning, forecasts and activity suitability to make smarter decisions before you travel.",
       },
       {
         id: "tools",
         label: "Smart Tools",
-        title: "Useful tools. One place.",
+        title: "Everyday map tools without the clutter.",
         description:
-          "Parking, speedometer, compass, translator, location tools and more are always within reach.",
+          "My Location, Find Address, Parking Manager, Ride Dashboard, compass, translator and other map tools stay within reach.",
       },
     ],
   },
@@ -97,9 +97,9 @@ export const site = {
 
   weather: {
     eyebrow: "Weather intelligence",
-    title: "Know the conditions before they change.",
+    title: "Know what’s ahead before you step outside.",
     description:
-      "Live forecasts, rain awareness, air quality and useful travel insights help you prepare before every journey.",
+      "Hourly forecasts, longer-range outlooks, radar, rain awareness, weather alerts and air-quality insights help you prepare before every journey.",
 
     location: "Madhapur",
     temperature: "30°",
@@ -171,9 +171,9 @@ export const site = {
 
   travel: {
   eyebrow: "Travel intelligence",
-  title: "Plan beyond the route.",
+  title: "Plan the trip around the conditions.",
   description:
-    "Build smarter journeys with route awareness, weather conditions and activity recommendations working together.",
+    "Build smarter journeys with route awareness, weather conditions and activity suitability working together.",
 
   planner: {
     from: "Current location",
@@ -261,21 +261,21 @@ utilities: {
   },
 
   speedometer: {
-    title: "Know your ride.",
+    title: "Your ride dashboard.",
     description:
-      "Track live speed and essential ride information while you move.",
+      "Track live speed, distance, ride time, direction and useful trip information while you move.",
   },
 
   compass: {
-    title: "Stay oriented.",
+    title: "Stay oriented in every mode.",
     description:
-      "A quick compass when direction matters.",
+      "Use the digital compass and its available viewing modes whenever direction matters.",
   },
 
   translator: {
-    title: "Travel without the language barrier.",
+    title: "Translate while you travel.",
     description:
-      "Translate text and useful phrases while you’re on the move.",
+      "Switch languages and translate useful text while you’re on the move.",
   },
 
   marquee: [
@@ -355,12 +355,20 @@ footer: {
       href: "#capabilities",
     },
     {
-      label: "Weather",
+      label: "Weather & AQI",
       href: "#weather",
     },
     {
-      label: "Travel",
+      label: "Travel Planner",
       href: "#travel",
+    },
+    {
+      label: "Location & Safety",
+      href: "#safety",
+    },
+    {
+      label: "Map Tools",
+      href: "#tools",
     },
     {
       label: "FAQ",
